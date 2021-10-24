@@ -22,7 +22,7 @@ public class SpawningPool : MonoBehaviour
 
     void Update()
     {
-        while(_monsterCount + _reserveCount < _keepMonsterCount)
+        while (_monsterCount + _reserveCount < _keepMonsterCount)
             StartCoroutine(ReserveSpawn());
     }
     IEnumerator ReserveSpawn()

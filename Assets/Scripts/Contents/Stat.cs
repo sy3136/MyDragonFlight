@@ -28,8 +28,8 @@ public class Stat : MonoBehaviour
         _level = 1;
         _hp = 100;
         _maxhp = 100;
-        _attack = 10;
-        _defense = 10;
+        _attack = 1;
+        _defense = 0;
         _moveSpeed = 7.0f;
     }
     public virtual void OnAttacked(int attackDamage)
@@ -47,7 +47,7 @@ public class Stat : MonoBehaviour
         PlayerStat playerStat = GetComponent<Stat>() as PlayerStat;
         if (playerStat != null)
         {
-            //playerStat.Exp += 5;
+            //score
         }
         gameObject.GetComponent<BaseController>().State = Define.State.Die;
     }

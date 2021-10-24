@@ -32,6 +32,11 @@ public class WarnController : BaseController
         lineSprite = line.GetComponent<SpriteRenderer>();
 
         StartCoroutine(CoSkillMeteo(_skillTime));
+
+        // Moving
+        _player = Managers.Game.GetPlayer();
+        if (_player == null)
+            return;
     }
 
     protected override void UpdateMoving()
@@ -49,9 +54,6 @@ public class WarnController : BaseController
             }
             time += Time.deltaTime;
 
-
-            // Moving
-            _player = Managers.Game.GetPlayer();
             if (_player == null)
                 return;
 
@@ -83,5 +85,4 @@ public class WarnController : BaseController
         Managers.Game.Despawn(gameObject);
         //Effect³Ö±â
     }
-
 }
