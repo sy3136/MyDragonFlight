@@ -67,9 +67,10 @@ public class PlayerController : BaseController
     }
     protected override void UpdateDie()
     {
-        Managers.Game.Despawn(gameObject);
         //Effect³Ö±â
+        Managers.Game.Despawn(gameObject);
     }
+
     IEnumerator CoMagnet()
     {
         isMagnetState = true;
@@ -78,4 +79,5 @@ public class PlayerController : BaseController
         Debug.Log("StopCoMagnet!");
         isMagnetState = false;
     }
+
 }
