@@ -9,6 +9,9 @@ public class GameScene : BaseScene
     GameObject _player;
     GameObject _coin;
     GameObject _highScore;
+    GameObject _boss;
+    private object pool;
+    public bool _bossStage = true;
     protected override void Init()
     {
         base.Init();
@@ -18,6 +21,7 @@ public class GameScene : BaseScene
         _player = Managers.Game.Spawn(Define.WorldObject.Player, "Player");
         _coin = GameObject.Find("CoinUI");
         _highScore = GameObject.Find("HighScoreUI");
+        _boss = null;
         GameObject go = new GameObject { name = "SpawningPool" };
         SpawningPool pool = go.GetOrAddComponent<SpawningPool>();
         pool.SetKeepMonsterCount(5);
@@ -46,12 +50,20 @@ public class GameScene : BaseScene
     }
     void Update()
     {
-        if(_player == null)
+
+        if (_player == null)
         {
             if (Time.timeScale == 0.0f)
                 return;
             Time.timeScale = 0.0f;
             StartCoroutine(CoOver());
+        }
+
+        //Boss
+        if (_bossStage)
+        {
+            StartCoroutine(CoBoss());
+            _bossStage = false;
         }
     }
     IEnumerator CoOver()
@@ -137,9 +149,31 @@ public class GameScene : BaseScene
     {
         while (true)
         {
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(4.5f);
             Managers.Game.Spawn(Define.WorldObject.Warn, "Env/Warn");
             if (_player == null)
+                break;
+        }
+    }
+    IEnumerator CoBoss()
+    {
+        yield return new WaitForSeconds(22.0f);
+        SpawningPool pool = GameObject.Find("SpawningPool").GetOrAddComponent<SpawningPool>();
+        pool.SetKeepMonsterCount(0);
+        GameObject obj = Managers.Game.Spawn(Define.WorldObject.Boss, "Monsters/boss_silhouette");
+        yield return new WaitForSeconds(5.0f);
+        Managers.Game.Despawn(obj);
+        Managers.Sound.Play("dragon_breathe");
+        _boss = Managers.Game.Spawn(Define.WorldObject.Boss, "Monsters/Boss");
+        StartCoroutine(CoBossAttack());
+    }
+    IEnumerator CoBossAttack()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1.5f);
+            Managers.Game.Spawn(Define.WorldObject.Warn, "Env/Warn");
+            if (_boss == null)
                 break;
         }
     }

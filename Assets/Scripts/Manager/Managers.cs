@@ -19,7 +19,7 @@ public class Managers : MonoBehaviour
     ResourceManager _resource = new ResourceManager();
     UIManager _ui = new UIManager();
     SceneMangerEx _scene = new SceneMangerEx();
-    //SoundManger _sound = new SoundManger();
+    SoundManger _sound = new SoundManger();
 
     //public static DataManager Data { get { return Instance._data; } }
     //public static InputManager Input { get { return Instance._input; } }
@@ -27,7 +27,7 @@ public class Managers : MonoBehaviour
     public static ResourceManager Resource { get { return Instance._resource; } }
     public static UIManager UI { get { return Instance._ui; } }
     public static SceneMangerEx Scene { get { return Instance._scene; } }
-    //public static SoundManger Sound { get { return Instance._sound; } }
+    public static SoundManger Sound { get { return Instance._sound; } }
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -60,14 +60,14 @@ public class Managers : MonoBehaviour
             s_instance._pool.Init();
 
             //Sound
-            //s_instance._sound.Init();
+            s_instance._sound.Init();
         }
 
     }
     public static void Clear()
     {
         //Input.Clear();
-        //Sound.Clear();
+        Sound.Clear();
         Scene.Clear();
         UI.Clear();
         Pool.Clear();

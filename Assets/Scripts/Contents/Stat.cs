@@ -31,6 +31,14 @@ public class Stat : MonoBehaviour
         _attack = 1;
         _defense = 0;
         _moveSpeed = 7.0f;
+
+        if (name == "Boss")
+        {
+            Hp = 1000;
+            MaxHp = 1000;
+            Defense = 30;
+            _moveSpeed = 3.0f;
+        }
     }
     public virtual void OnAttacked(int attackDamage)
     {

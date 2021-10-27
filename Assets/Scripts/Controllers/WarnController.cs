@@ -83,6 +83,5 @@ public class WarnController : BaseController
     protected override void UpdateDie()
     {
         Managers.Game.Despawn(gameObject);
-        //Effect³Ö±â
     }
 }

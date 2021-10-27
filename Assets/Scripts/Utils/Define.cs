@@ -9,6 +9,7 @@ public class Define
         Unknown,
         Player,
         Monster,
+        Boss,
         Bullet,
         BackGround,
         Warn,
@@ -25,5 +26,11 @@ public class Define
         Login,
         Lobby,
         Game,
+    }
+    public enum Sound
+    {
+        Bgm,
+        Effect,
+        MaxCount,
     }
 }

@@ -62,6 +62,7 @@ public class PlayerController : BaseController
         }
         if (collision.CompareTag("Meteo"))
         {
+            Managers.Sound.Play("HIT");
             GetComponent<PlayerStat>().OnAttacked(999);
         }
     }

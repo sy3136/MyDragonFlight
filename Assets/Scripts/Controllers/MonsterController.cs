@@ -18,6 +18,14 @@ public class MonsterController : BaseController
     }
     protected override void UpdateMoving()
     {
+        // Boss 이동
+        if(name == "Boss")
+        {
+            if (transform.position.y <= 5.001f)
+                return;
+            transform.position += Vector3.down * Time.deltaTime * _stat.MoveSpeed;
+        }
+
         // 이동
         transform.position += Vector3.down * Time.deltaTime * _stat.MoveSpeed;
 
@@ -26,6 +34,7 @@ public class MonsterController : BaseController
         {
             Managers.Game.Despawn(gameObject);
         }
+        
     }
 
     protected override void UpdateDie()
@@ -64,14 +73,27 @@ public class MonsterController : BaseController
                 highScore.GetComponent<TMP_Text>().text = $"{scoreCount}";
             }
         }
-
-        Managers.Game.Despawn(gameObject);  
+        if(name == "Boss")
+        {
+            for (int i = 0; i < 25; i++)
+            {
+                GameObject coin = Managers.Game.Spawn(Define.WorldObject.Item, "Items/Coin");
+                coin.transform.position = gameObject.transform.position;
+            }
+            SpawningPool pool = GameObject.Find("SpawningPool").GetOrAddComponent<SpawningPool>();
+            pool.SetKeepMonsterCount(5);
+            GameScene gs = GameObject.Find("@Scene").GetComponent<GameScene>();
+            gs._bossStage = true;
+        }
+        Managers.Game.Despawn(gameObject);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
+            Managers.Sound.Play("HIT");
             collision.GetComponent<PlayerStat>().OnAttacked(_stat.Attack);
         }
     }
+
 }

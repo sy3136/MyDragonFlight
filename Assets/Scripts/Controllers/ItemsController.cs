@@ -44,7 +44,7 @@ public class ItemsController : BaseController
                 transform.GetComponent<Rigidbody2D>().AddForce(dir.normalized * magnetForce * (1 / (distance * distance)));
 
                 // 강제로 (안그러면 이상하게 날라가는 경우 생김)
-                if (dir.x < 0.6f && transform.position.y < -4.5f && transform.position.y > -4.7f)
+                if (dir.x < 0.6f && transform.position.y < -4.5f && transform.position.y > -5.2f)
                 {
                     transform.position = new Vector2(transform.position.x, -4.5f);
                 }
