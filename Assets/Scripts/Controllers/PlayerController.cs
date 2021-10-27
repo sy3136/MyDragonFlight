@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class PlayerController : BaseController
 {
     PlayerStat _stat;
@@ -11,9 +11,6 @@ public class PlayerController : BaseController
     {
         WorldObjectType = Define.WorldObject.Player;
         _stat = gameObject.GetComponent<PlayerStat>();
-
-        if (gameObject.GetComponentInChildren<UI_HPBar>() == null)
-            Managers.UI.MakeWorldSpaceUI<UI_HPBar>(transform);
     }
 
     protected override void UpdateMoving()
@@ -53,16 +50,28 @@ public class PlayerController : BaseController
             else if (collision.name.Contains("Coin"))
             {
                 // 점수 업데이트
+                GameObject go = GameObject.Find("CoinUI");
+                if (PlayerPrefs.HasKey("Coin"))
+                {
+                    int coinCount = PlayerPrefs.GetInt("Coin");
+
+                    PlayerPrefs.SetInt("Coin", coinCount + 1);
+                    go.GetComponent<TMP_Text>().text = $"<sprite=0>{coinCount+1}";
+                }
             }
-            return;
         }
-        State = Define.State.Die;
+        if (collision.CompareTag("Meteo"))
+        {
+            Managers.Sound.Play("HIT");
+            GetComponent<PlayerStat>().OnAttacked(999);
+        }
     }
     protected override void UpdateDie()
     {
-        Managers.Game.Despawn(gameObject);
         //Effect넣기
+        Managers.Game.Despawn(gameObject);
     }
+
     IEnumerator CoMagnet()
     {
         isMagnetState = true;
@@ -71,4 +80,5 @@ public class PlayerController : BaseController
         Debug.Log("StopCoMagnet!");
         isMagnetState = false;
     }
+
 }

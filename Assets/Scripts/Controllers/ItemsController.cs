@@ -17,6 +17,7 @@ public class ItemsController : BaseController
             float randX = Random.Range(-50.0f, 50.0f);
 
             transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(randX, 10.0f));
+            transform.GetComponent<Rigidbody2D>().AddTorque(randX / 2.0f);
         }
         _player = Managers.Game.GetPlayer();
     }
@@ -25,6 +26,11 @@ public class ItemsController : BaseController
     {
         if (_player == null)
             return;
+
+        Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+        if (pos.x < 0f) pos.x = 0f;
+        if (pos.x > 1f) pos.x = 1f;
+        transform.position = Camera.main.ViewportToWorldPoint(pos);
 
         if (_player.GetComponent<PlayerController>().isMagnetState)
         {
@@ -38,12 +44,11 @@ public class ItemsController : BaseController
                 transform.GetComponent<Rigidbody2D>().AddForce(dir.normalized * magnetForce * (1 / (distance * distance)));
 
                 // 강제로 (안그러면 이상하게 날라가는 경우 생김)
-                if (dir.x < 0.7f && transform.position.y < -4.5f && transform.position.y > -5.0f)
+                if (dir.x < 0.6f && transform.position.y < -4.5f && transform.position.y > -5.2f)
                 {
                     transform.position = new Vector2(transform.position.x, -4.5f);
                 }
             }
-
         }
 
         if (transform.position.y <= -6.5f)
