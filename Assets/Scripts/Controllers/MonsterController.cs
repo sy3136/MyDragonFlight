@@ -92,8 +92,16 @@ public class MonsterController : BaseController
         if (collision.CompareTag("Player"))
         {
             Managers.Sound.Play("HIT");
+            GameObject hit = Managers.Resource.Instantiate("Env/HitEffect");
+            hit.transform.position = collision.transform.position + Vector3.up*0.5f;
+            StartCoroutine(CoHitEffect(hit));
             collision.GetComponent<PlayerStat>().OnAttacked(_stat.Attack);
         }
     }
 
+    IEnumerator CoHitEffect(GameObject hit)
+    {
+        yield return new WaitForSeconds(0.5f);
+        Managers.Resource.Destroy(hit);
+    }
 }

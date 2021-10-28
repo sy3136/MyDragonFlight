@@ -18,7 +18,7 @@ public class GameScene : BaseScene
 
         SceneType = Define.Scene.Game;
 
-        _player = Managers.Game.Spawn(Define.WorldObject.Player, "Player");
+        _player = Managers.Game.Spawn(Define.WorldObject.Player, "Players/Player");
         _coin = GameObject.Find("CoinUI");
         _highScore = GameObject.Find("HighScoreUI");
         _boss = null;
@@ -71,7 +71,7 @@ public class GameScene : BaseScene
         GameObject gameOver = Managers.Resource.Instantiate("UI/GAMEOVER");
         GameObject tmpGameOver = gameOver.transform.GetChild(0).GetChild(0).gameObject;
         TMP_Text tmpText = tmpGameOver.GetComponent<TMP_Text>();
-        StartCoroutine(CoChangeColor(tmpText));
+        //StartCoroutine(CoChangeColor(tmpText));
         Vector3 p1 = tmpGameOver.transform.position;
         float time = 0.0f;
 
@@ -140,7 +140,7 @@ public class GameScene : BaseScene
         while (true)
         {
             yield return new WaitForSeconds(0.1f);
-            Managers.Game.Spawn(Define.WorldObject.Bullet, "Bullet");
+            Managers.Game.Spawn(Define.WorldObject.Bullet, "Weapons/Bullet");
             if (_player == null)
                 break;
         }
