@@ -36,7 +36,7 @@ public class Stat : MonoBehaviour
         {
             Hp = 1000;
             MaxHp = 1000;
-            Defense = 30;
+            Defense = 10;
             _moveSpeed = 3.0f;
         }
     }

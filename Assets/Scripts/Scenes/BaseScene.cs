@@ -15,7 +15,7 @@ public abstract class BaseScene : MonoBehaviour
     protected virtual void Init()
     {
         Time.timeScale = 1.0f;
-        Screen.SetResolution(1080, 1920, false);
+        Screen.SetResolution(540, 960, false);
         Object obj = GameObject.FindObjectOfType(typeof(EventSystem));
 
         if (obj == null)

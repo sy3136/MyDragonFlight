@@ -7,7 +7,7 @@ public class BulletController : BaseController
     GameObject _player;
     private int damage;
     public float _speed = 10.0f;
-    int level = 2;
+    int level = 1;
     Sprite bulletSprite;
     public override void Init()
     {
@@ -15,7 +15,6 @@ public class BulletController : BaseController
         _player = Managers.Game.GetPlayer();
         if (_player == null)
             return;
-        damage = _player.GetComponent<PlayerStat>().Attack;
         transform.position = _player.transform.position;
 
         if (PlayerPrefs.HasKey("Level"))
@@ -25,7 +24,8 @@ public class BulletController : BaseController
 
         bulletSprite = Managers.Resource.Load<Sprite>("Images/Weapons/bullet_"+level.ToString("00"));
         GetComponent<SpriteRenderer>().sprite = bulletSprite;
-
+        damage = _player.GetComponent<PlayerStat>().Attack + level * 10;
+        
         State = Define.State.Moving;
     }
     protected override void UpdateMoving()

@@ -14,7 +14,7 @@ public class PlayerStat : Stat
         _hp = 3;
         _maxhp = 3;
         _moveSpeed = 8.0f;
-        _attack = 35;
+        _attack = 20;
         _gold = 0;
     }
 

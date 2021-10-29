@@ -8,7 +8,8 @@ public class Lobby_UIManager : MonoBehaviour
 {
     public Image weapon;
     public GameObject _coin;
-    int level, coin;
+    int level = 1;
+    int coin = 0;
     int[] price = {10, 20, 30, 40};
 
     private void Awake() {
