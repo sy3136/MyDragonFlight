@@ -63,6 +63,9 @@ public class PlayerController : BaseController
         if (collision.CompareTag("Meteo"))
         {
             Managers.Sound.Play("HIT");
+            GameObject hit = Managers.Resource.Instantiate("Env/HitEffect");
+            hit.transform.position = transform.position + Vector3.up * 0.5f;
+            StartCoroutine(CoHitEffect(hit));
             GetComponent<PlayerStat>().OnAttacked(999);
         }
     }
@@ -79,6 +82,11 @@ public class PlayerController : BaseController
         yield return new WaitForSeconds(10.0f);
         Debug.Log("StopCoMagnet!");
         isMagnetState = false;
+    }
+    IEnumerator CoHitEffect(GameObject hit)
+    {
+        yield return new WaitForSeconds(0.5f);
+        Managers.Resource.Destroy(hit);
     }
 
 }
